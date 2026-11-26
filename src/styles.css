@@ -37,8 +37,11 @@ h3 { margin: 0 0 0.4rem; font-size: 1rem; }
 .privacy, .note, .fine, .sub, .count-line { color: var(--muted); }
 .privacy { margin: 0; max-width: 42rem; padding: 0.75rem 0.9rem; border: 1px solid var(--line); border-left: 3px solid var(--accent); background: rgb(14 18 16 / 80%); }
 .credit { margin: 0.35rem 0 0; color: var(--muted); }
+.site-footer { width: min(1120px, calc(100% - 1.5rem)); margin: 0 auto; padding: 0.2rem 0 1.5rem; min-width: 0; }
+.site-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: 0.95rem; text-underline-offset: 0.18em; }
+.site-footer a:hover { color: var(--text); }
 
-main { display: grid; gap: 1rem; padding-bottom: 3rem; }
+main { display: grid; gap: 1rem; padding-bottom: 0.5rem; }
 .drop, .panel, .flag-card, .table-block { background: rgb(20 26 22 / 92%); border: 1px solid var(--line); border-radius: 14px; }
 .drop { padding: 1rem; box-shadow: var(--shadow); }
 .drop h2 { margin-bottom: 0.35rem; }
