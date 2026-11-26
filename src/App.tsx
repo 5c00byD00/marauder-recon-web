@@ -160,6 +160,11 @@ export function App() {
           </>
         )}
       </main>
+      <footer className="site-footer">
+        <a href="https://github.com/5c00byD00/marauder-recon-web" target="_blank" rel="noreferrer">
+          Source
+        </a>
+      </footer>
     </>
   );
 }
