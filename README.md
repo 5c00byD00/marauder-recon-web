@@ -73,9 +73,11 @@ npm run dev
 npm run build
 ```
 
-`npm test` runs the Vitest suite, including a byte-for-byte check of `observations.csv` and `mission.json` against the vendored `recon_report.py`. `npm run build` typechecks and builds the static site into `dist/`.
+`npm run dev` serves the app at `http://localhost:5173/marauder-recon-web/`. That base path matches the GitHub Pages project site.
 
-CI on pull requests runs `npm ci`, `npm test`, and `npm run build`. It does not deploy GitHub Pages.
+`npm test` runs the Vitest suite, including a byte-for-byte check of `observations.csv` and `mission.json` against the vendored `recon_report.py`. `npm run build` typechecks, builds the static site into `dist/`, and writes the offline service worker.
+
+CI on pull requests runs `npm ci`, `npm test`, and `npm run build`. A push to `main` also publishes `dist/` to GitHub Pages at `https://5c00byd00.github.io/marauder-recon-web/`.
 
 To refresh the OUI snapshot, download the IEEE MA-L CSV and run `python3 scripts/build-oui.py oui.csv`.
 
@@ -84,6 +86,4 @@ To refresh the OUI snapshot, download the IEEE MA-L CSV and run `python3 scripts
 - Map and timeline of the GPS fixes and sightings.
 - Follower and deauth analysis: who stayed with the route, and which deauth transmitters repeat.
 - Recover AP SSIDs and BLE advertisements from the mission pcap, which this batch only lists.
-- PWA and offline install, including a service worker around the bundled OUI table.
-- GitHub Pages deploy.
 - Android app wrapping the same local parser.

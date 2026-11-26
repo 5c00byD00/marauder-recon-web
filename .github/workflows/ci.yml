@@ -18,3 +18,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - run: grep -q '/marauder-recon-web/assets/' dist/index.html
+      - run: test -f dist/manifest.webmanifest
+      - run: test -f dist/sw.js
+      - run: grep -q 'marauder-recon-' dist/sw.js

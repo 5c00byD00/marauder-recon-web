@@ -73,9 +73,15 @@ export function App() {
         <div>
           <p className="kicker">On this device</p>
           <h1>Marauder Recon</h1>
+          <p className="credit">
+            Reads missions from{" "}
+            <a href="https://github.com/justcallmekoko/ESP32Marauder" target="_blank" rel="noreferrer">
+              ESP32 Marauder
+            </a>
+          </p>
         </div>
         <p className="privacy">
-          Mission files hold uncensored MAC addresses, SSIDs, and GPS. They are read in this browser and are not uploaded.
+          Mission files hold uncensored MAC addresses, SSIDs, and GPS. This page reads them only in your browser. Nothing is uploaded, including from the public site.
         </p>
       </header>
       <main>
@@ -85,7 +91,10 @@ export function App() {
           onDrop={(event) => void onDrop(event)}
         >
           <h2>Open a mission</h2>
-          <p>Drop a /recon/m#### folder, the files inside it, or a zip. Choose files works in Android Chrome. Choose folder is for desktop browsers.</p>
+          <p>Drop a /recon/m#### folder, the files inside it, or a zip. Choose folder is for desktop browsers.</p>
+          <p>
+            On a phone, copy the <span className="mono">/recon/m####</span> folder off the Marauder SD card. Android Chrome cannot upload a folder. Zip that folder, or use Choose files and select session.json, obs.rlog, and any probes.rlog, relations.rlog, and pcap beside them.
+          </p>
           <div className="actions">
             <label className="button primary">
               Choose files
