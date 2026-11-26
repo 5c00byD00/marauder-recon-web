@@ -1,0 +1,6 @@
+IEEE MA-L (24-bit) registry snapshot.
+Source: https://standards-oui.ieee.org/oui/oui.csv
+Retrieved: 2026-11-26
+Assignments: 40565
+Organizations: 20158
+Rebuild with scripts/build-oui.py. Locally administered MAC addresses are not looked up in this table.
