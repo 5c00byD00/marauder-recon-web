@@ -1,0 +1,592 @@
+[
+  {
+    "id": "flock-safety-oui",
+    "title": "Flock Safety",
+    "category": "alpr",
+    "confidence": "high",
+    "match": { "kind": "oui-org", "pattern": "^Flock Safety$" },
+    "because": "OUI {prefix} is registered to {org} in the IEEE MA-L registry. That block belongs to Flock Safety, which builds automated license-plate cameras.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "flock-module-oui",
+    "title": "Flock list, module vendor",
+    "category": "alpr",
+    "confidence": "low",
+    "match": {
+      "kind": "oui-prefix",
+      "prefixes": [
+        "58:8E:81", "CC:CC:CC", "EC:1B:BD", "90:35:EA", "04:0D:84", "F0:82:C0",
+        "1C:34:F1", "38:5B:44", "94:34:69", "B4:E3:F9", "70:C9:4E", "3C:91:80",
+        "D8:F3:BC", "80:30:49", "14:5A:FC", "74:4C:A1", "08:3A:88", "9C:2F:9D",
+        "94:08:53", "E4:AA:EA", "F4:6A:DD", "F8:A2:D6", "E0:0A:F6", "00:F4:8D",
+        "D0:39:57", "E8:D0:FC"
+      ]
+    },
+    "because": "OUI {prefix} is registered to {org}. ESP32 Marauder v1.21.0 includes this prefix in WiFiScan.cpp oui_list, and DeFlock community lists use the same style of module OUI. The IEEE registrant is not Flock Safety, so this is a lead shared with a lot of ordinary radios.",
+    "sources": [
+      { "title": "ESP32 Marauder WiFiScan.cpp oui_list (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" },
+      { "title": "DeFlock / flock-you OUI notes", "url": "https://github.com/DeflockJoplin/flock-you" },
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "flock-ssid-pattern",
+    "title": "Flock setup SSID",
+    "category": "alpr",
+    "confidence": "high",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^flock-[0-9a-f]{6}$", "flags": "i" },
+    "because": "SSID \"{ssid}\" matches the Flock-XXXXXX name documented from Falcon camera beacons.",
+    "proberBecause": "This station probed for \"{ssid}\", a Flock-style SSID. A probe shows a searched or remembered name, not that this radio is a Flock camera.",
+    "sources": [
+      { "title": "Ryan O'Horo, Spotting Flock Safety's Falcon Cameras", "url": "https://www.ryanohoro.com/post/spotting-flock-safety-s-falcon-cameras" }
+    ]
+  },
+  {
+    "id": "flock-ssid-test",
+    "title": "Flock test_flck SSID",
+    "category": "alpr",
+    "confidence": "high",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^test_flck$", "flags": "i" },
+    "because": "SSID \"{ssid}\" is the development name DeFlock and WatchFlock report as baked into Flock camera firmware.",
+    "proberBecause": "This station probed for \"{ssid}\". That is the development SSID associated with Flock firmware, not proof this radio is the camera.",
+    "sources": [
+      { "title": "WatchFlock detection notes", "url": "https://github.com/JakeSwiz/WatchFlock/blob/master/BUILD-C5.md" }
+    ]
+  },
+  {
+    "id": "flock-ssid-exact",
+    "title": "SSID Flock",
+    "category": "alpr",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^flock$", "flags": "i" },
+    "because": "SSID \"{ssid}\" is exactly Flock. The match is the whole name, so a network such as Flockhart does not qualify.",
+    "proberBecause": "This station probed for the SSID \"{ssid}\".",
+    "sources": [
+      { "title": "SquachWatch detection notes", "url": "https://github.com/skizzophrenic/SquachWatch-CYD/blob/master/docs/DETECTIONS.md" }
+    ]
+  },
+  {
+    "id": "flock-ble-named",
+    "title": "Flock BLE name",
+    "category": "alpr",
+    "confidence": "medium",
+    "match": {
+      "kind": "all",
+      "of": [
+        { "kind": "ble-company", "ids": ["09C8"] },
+        { "kind": "ble-name", "pattern": "^(Penguin-\\d{10}|FS Ext Battery|\\d{10})$" }
+      ]
+    },
+    "because": "Advertisement carries XUNTONG company ID 0x09C8 and a name ({name}) that ESP32 Marauder treats as a Flock camera in isFlockCamera().",
+    "sources": [
+      { "title": "ESP32 Marauder WiFiScan::isFlockCamera (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" }
+    ]
+  },
+  {
+    "id": "genetec-oui",
+    "title": "Genetec",
+    "category": "alpr",
+    "confidence": "medium",
+    "match": { "kind": "oui-org", "pattern": "^Genetec Inc\\.$" },
+    "because": "OUI {prefix} is registered to {org}. Genetec sells the AutoVu license-plate platform and other security products, so the block identifies the vendor rather than one camera model. The separate IEEE entry \"GENETEC Corporation\" is not included.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "motorola-solutions-oui",
+    "title": "Motorola Solutions",
+    "category": "alpr",
+    "confidence": "medium",
+    "match": { "kind": "oui-org", "pattern": "^Motorola Solutions Inc\\.$|^MOTOROLA SOLUTIONS MALAYSIA SDN\\. BHD\\.$" },
+    "because": "OUI {prefix} is registered to {org}. Motorola Solutions absorbed Vigilant Solutions, an ALPR vendor, and also ships radios and other public-safety gear. The OUI is the vendor, not proof of a plate reader.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "hikvision-oui",
+    "title": "Hikvision",
+    "category": "camera",
+    "confidence": "medium",
+    "match": { "kind": "oui-org", "pattern": "Hikvision" },
+    "because": "OUI {prefix} is registered to {org}. Hikvision's blocks cover cameras and recorders, so this identifies the manufacturer.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "dahua-oui",
+    "title": "Dahua",
+    "category": "camera",
+    "confidence": "medium",
+    "match": { "kind": "oui-org", "pattern": "Dahua" },
+    "because": "OUI {prefix} is registered to {org}. Dahua's blocks cover cameras and recorders, so this identifies the manufacturer.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "wyze-oui",
+    "title": "Wyze",
+    "category": "camera",
+    "confidence": "high",
+    "match": { "kind": "oui-org", "pattern": "^Wyze Labs Inc$" },
+    "because": "OUI {prefix} is registered to {org}. Wyze Labs registrations are the company's own blocks.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "ring-oui",
+    "title": "Ring",
+    "category": "camera",
+    "confidence": "high",
+    "match": { "kind": "oui-org", "pattern": "^Ring LLC$" },
+    "because": "OUI {prefix} is registered to {org}. Ring LLC's MA-L blocks are the company's own. Names that merely contain \"ring\" are not matched.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "arlo-oui",
+    "title": "Arlo",
+    "category": "camera",
+    "confidence": "high",
+    "match": { "kind": "oui-org", "pattern": "^Arlo Technology$" },
+    "because": "OUI {prefix} is registered to {org}. Only the Arlo Technology blocks are matched. Arlotto and Carlo Gavazzi are different registrants and are not.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "axis-oui",
+    "title": "Axis",
+    "category": "camera",
+    "confidence": "high",
+    "match": { "kind": "oui-org", "pattern": "^Axis Communications AB$" },
+    "because": "OUI {prefix} is registered to {org}, the camera company.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "hikvision-ssid",
+    "title": "Hikvision SSID",
+    "category": "camera",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "(^|[^a-z0-9])hikvision([^a-z0-9]|$)", "flags": "i" },
+    "because": "SSID \"{ssid}\" contains Hikvision as a whole word.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "IEEE MA-L registry (vendor name)", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "dahua-ssid",
+    "title": "Dahua SSID",
+    "category": "camera",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "(^|[^a-z0-9])dahua([^a-z0-9]|$)", "flags": "i" },
+    "because": "SSID \"{ssid}\" contains Dahua as a whole word.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "IEEE MA-L registry (vendor name)", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "wyze-ssid",
+    "title": "Wyze SSID",
+    "category": "camera",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^wyze([-_].*)?$", "flags": "i" },
+    "because": "SSID \"{ssid}\" starts with Wyze.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "IEEE MA-L registry (vendor name)", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "ring-ssid",
+    "title": "Ring SSID",
+    "category": "camera",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^ring-[0-9a-z]+$", "flags": "i" },
+    "because": "SSID \"{ssid}\" matches the Ring- prefix used by Ring setup networks. A word that merely contains \"ring\" does not.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "SquachWatch detection notes", "url": "https://github.com/skizzophrenic/SquachWatch-CYD/blob/master/docs/DETECTIONS.md" }
+    ]
+  },
+  {
+    "id": "arlo-ssid",
+    "title": "Arlo SSID",
+    "category": "camera",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^arlo([-_].*)?$", "flags": "i" },
+    "because": "SSID \"{ssid}\" starts with Arlo.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "IEEE MA-L registry (vendor name)", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "axis-ssid",
+    "title": "Axis SSID",
+    "category": "camera",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^axis([-_].*)?$", "flags": "i" },
+    "because": "SSID \"{ssid}\" starts with Axis.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "IEEE MA-L registry (vendor name)", "url": "https://standards-oui.ieee.org/oui/oui.csv" }
+    ]
+  },
+  {
+    "id": "pineapple-ssid",
+    "title": "WiFi Pineapple SSID",
+    "category": "hacking",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^pineapple_[0-9a-f]{4}$", "flags": "i" },
+    "because": "SSID \"{ssid}\" matches the Pineapple_ plus four hex digits management name used by Hak5 WiFi Pineapple Mark-series gear. The Pineapple Pager does not have a published unique SSID: Hak5's own PineAP notes say it advertises a pool of arbitrary names and can randomize the BSSID.",
+    "proberBecause": "This station probed for \"{ssid}\", a Pineapple-style management SSID. Probing for it is not the same as being the Pineapple.",
+    "sources": [
+      { "title": "SquachWatch detection notes", "url": "https://github.com/skizzophrenic/SquachWatch-CYD/blob/master/docs/DETECTIONS.md" },
+      { "title": "Hak5 WiFi Pineapple Pager PineAP", "url": "https://documentation.hak5.org/wifi-pineapple-pager/pineap" }
+    ]
+  },
+  {
+    "id": "hak5-local-mac",
+    "title": "Hak5-style local MAC",
+    "category": "hacking",
+    "confidence": "low",
+    "match": { "kind": "oui-prefix", "prefixes": ["02:C0:CA", "02:13:37"], "allowLocal": true },
+    "because": "MAC prefix {prefix} is one of the locally administered addresses ESP32 Marauder lists under Hak5 in its pine-scan table. Hak5 has no IEEE registration. The same addresses can be set by anyone, and the Pineapple Pager can randomize its BSSID, so this is a hint about Hak5-style gear rather than a specific model.",
+    "sources": [
+      { "title": "ESP32 Marauder suspicious_vendors (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" },
+      { "title": "Hak5 WiFi Pineapple Pager PineAP", "url": "https://documentation.hak5.org/wifi-pineapple-pager/pineap" }
+    ]
+  },
+  {
+    "id": "alfa-module",
+    "title": "Alfa radio",
+    "category": "hacking",
+    "confidence": "low",
+    "match": { "kind": "oui-prefix", "prefixes": ["00:C0:CA"] },
+    "because": "OUI {prefix} is registered to {org}. ESP32 Marauder marks Alfa as suspicious when the AP is open because some WiFi Pineapple hardware used Alfa radios. The registry entry is Alfa, not Hak5.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" },
+      { "title": "ESP32 Marauder suspicious_vendors (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" }
+    ]
+  },
+  {
+    "id": "orient-module",
+    "title": "Orient Power radio",
+    "category": "hacking",
+    "confidence": "low",
+    "match": { "kind": "oui-prefix", "prefixes": ["00:13:37"] },
+    "because": "OUI {prefix} is registered to {org}. ESP32 Marauder comments this block as Orient Power hardware used in the WiFi Pineapple Mark VII. The registry entry is Orient Power, not Hak5.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" },
+      { "title": "ESP32 Marauder suspicious_vendors (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" }
+    ]
+  },
+  {
+    "id": "pwned-ssid",
+    "title": "Deauther SSID",
+    "category": "hacking",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^pwned([-_].*)?$", "flags": "i" },
+    "because": "SSID \"{ssid}\" matches the default control-network name used by the ESP8266 Deauther project.",
+    "proberBecause": "This station probed for \"{ssid}\", the default ESP8266 Deauther SSID.",
+    "sources": [
+      { "title": "spacehuhn/esp8266_deauther", "url": "https://github.com/spacehuhn/esp8266_deauther" }
+    ]
+  },
+  {
+    "id": "deauther-ssid",
+    "title": "Deauther name",
+    "category": "hacking",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "(^|[^a-z0-9])deauther([^a-z0-9]|$)", "flags": "i" },
+    "because": "SSID \"{ssid}\" contains deauther as a whole word.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "spacehuhn/esp8266_deauther", "url": "https://github.com/spacehuhn/esp8266_deauther" }
+    ]
+  },
+  {
+    "id": "pwnagotchi-ssid",
+    "title": "Pwnagotchi name",
+    "category": "hacking",
+    "confidence": "medium",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "(^|[^a-z0-9])pwnagotchi([^a-z0-9]|$)", "flags": "i" },
+    "because": "SSID \"{ssid}\" contains pwnagotchi. The stronger signature is the beacon vendor element whose JSON includes the key pwnd_tot. RCN1 does not store beacon bodies, so that check runs only when a beacon text supplement is present.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "evilsocket/pwnagotchi", "url": "https://github.com/evilsocket/pwnagotchi" },
+      { "title": "ESP32 Marauder pwnagotchi beacon parser (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" }
+    ]
+  },
+  {
+    "id": "pwnagotchi-beacon",
+    "title": "Pwnagotchi beacon",
+    "category": "hacking",
+    "confidence": "high",
+    "match": { "kind": "beacon-contains", "text": "pwnd_tot" },
+    "because": "Beacon text contains pwnd_tot, the handshake counter a pwnagotchi puts in its vendor information element. ESP32 Marauder detects other pwnagotchis the same way.",
+    "sources": [
+      { "title": "ESP32 Marauder pwnagotchi beacon parser (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" },
+      { "title": "evilsocket/pwnagotchi", "url": "https://github.com/evilsocket/pwnagotchi" }
+    ]
+  },
+  {
+    "id": "marauder-ssid",
+    "title": "Marauder name",
+    "category": "hacking",
+    "confidence": "low",
+    "proberConfidence": "low",
+    "match": { "kind": "ssid", "pattern": "^marauder([-_].*)?$", "flags": "i" },
+    "because": "SSID \"{ssid}\" starts with Marauder. The firmware does not advertise a fixed SSID during Recon, so this is only a name match.",
+    "proberBecause": "This station probed for \"{ssid}\".",
+    "sources": [
+      { "title": "ESP32 Marauder Recon", "url": "https://github.com/justcallmekoko/ESP32Marauder/wiki/Recon" }
+    ]
+  },
+  {
+    "id": "espressif-deauth",
+    "title": "ESP32 deauth activity",
+    "category": "hacking",
+    "confidence": "medium",
+    "suppresses": ["deauth-activity"],
+    "match": {
+      "kind": "all",
+      "of": [
+        { "kind": "oui-org", "pattern": "^Espressif Inc\\.$" },
+        { "kind": "deauth-min", "min": 1 }
+      ]
+    },
+    "because": "This MAC transmitted {count} deauthentication frame(s), and OUI {prefix} is registered to {org}. That fits an ESP32 Marauder or a deauther board. It also fits any other ESP32 that sent those frames. An Espressif OUI with no deauth is not flagged.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" },
+      { "title": "ESP32 Marauder ReconMission deauth log (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/ReconMission.cpp" }
+    ]
+  },
+  {
+    "id": "deauth-activity",
+    "title": "Deauth frames",
+    "category": "activity",
+    "confidence": "low",
+    "match": { "kind": "deauth-min", "min": 1 },
+    "because": "This MAC transmitted {count} deauthentication frame(s) recorded as obs.rlog type d. The log shows the activity. It does not name the tool.",
+    "sources": [
+      { "title": "ESP32 Marauder Recon wiki", "url": "https://github.com/justcallmekoko/ESP32Marauder/wiki/Recon" }
+    ]
+  },
+  {
+    "id": "flipper-service",
+    "title": "Flipper Zero",
+    "category": "hacking",
+    "confidence": "high",
+    "match": { "kind": "ble-service", "uuids": ["3081", "3082", "3083"] },
+    "because": "BLE service UUID {service} is one of 0x3081, 0x3082, and 0x3083. ESP32 Marauder maps those to Flipper Zero case colors (black, white, transparent). The advertisement carries the UUID little-endian, so the bytes on air are 81 30, 82 30, or 83 30.",
+    "sources": [
+      { "title": "ESP32 Marauder Flipper scan (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" }
+    ]
+  },
+  {
+    "id": "flipper-name",
+    "title": "Flipper name",
+    "category": "hacking",
+    "confidence": "medium",
+    "suppresses": [],
+    "match": { "kind": "ble-name", "pattern": "^flipper\\b", "flags": "i" },
+    "because": "Advertised name \"{name}\" starts with Flipper. Owners can rename the device, and other products can copy the name, so this is weaker than the service UUID.",
+    "sources": [
+      { "title": "ESP32 Marauder Flipper scan (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" }
+    ]
+  },
+  {
+    "id": "flipper-oui",
+    "title": "Flipper Devices OUI",
+    "category": "hacking",
+    "confidence": "low",
+    "match": { "kind": "oui-prefix", "prefixes": ["0C:FA:22"] },
+    "because": "OUI {prefix} is registered to {org}. This Wi-Fi block is not how a Flipper Zero is identified. The Zero is matched by BLE service UUIDs 0x3081–0x3083. The same OUI has been reported on Flipper's BUSY Bar.",
+    "sources": [
+      { "title": "IEEE MA-L registry", "url": "https://standards-oui.ieee.org/oui/oui.csv" },
+      { "title": "SquachWatch detection notes", "url": "https://github.com/skizzophrenic/SquachWatch-CYD/blob/master/docs/DETECTIONS.md" }
+    ]
+  },
+  {
+    "id": "meta-composite",
+    "title": "Ray-Ban Meta glasses",
+    "category": "wearable",
+    "confidence": "high",
+    "suppresses": ["meta-service", "meta-name", "meta-luxottica", "meta-company"],
+    "match": {
+      "kind": "all",
+      "of": [
+        { "kind": "ble-name", "pattern": "ray-ban|oakley meta|meta rb", "flags": "i" },
+        { "kind": "ble-service", "uuids": ["FD5F"] }
+      ]
+    },
+    "because": "The advertisement names \"{name}\" and includes Meta service UUID 0xFD5F. ESP32 Marauder lists 0xFD5F as a Meta identifier. The name makes the glasses reading specific. A phone running a Meta app can advertise 0xFD5F without that name.",
+    "sources": [
+      { "title": "ESP32 Marauder META_IDENTIFIERS (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.h" },
+      { "title": "Starcruiser Meta Ray-Ban BLE notes", "url": "https://github.com/zhuowei/Starcruiser-mac" }
+    ]
+  },
+  {
+    "id": "meta-service",
+    "title": "Meta service UUID",
+    "category": "wearable",
+    "confidence": "medium",
+    "match": { "kind": "ble-service", "uuids": ["FD5F"] },
+    "because": "Service UUID {service} is 0xFD5F, which ESP32 Marauder lists as Meta. Ray-Ban Meta glasses advertise it. Phones running Meta apps can advertise it too, so the UUID alone is not the glasses.",
+    "sources": [
+      { "title": "ESP32 Marauder META_IDENTIFIERS (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.h" }
+    ]
+  },
+  {
+    "id": "meta-name",
+    "title": "Glasses name",
+    "category": "wearable",
+    "confidence": "medium",
+    "match": { "kind": "ble-name", "pattern": "ray-ban|oakley meta|meta rb", "flags": "i" },
+    "because": "Advertised name \"{name}\" matches a Ray-Ban Meta, Oakley Meta, or Meta Ray-Ban display name. Names can be copied.",
+    "sources": [
+      { "title": "Starcruiser Meta Ray-Ban BLE notes", "url": "https://github.com/zhuowei/Starcruiser-mac" }
+    ]
+  },
+  {
+    "id": "meta-luxottica",
+    "title": "Luxottica company ID",
+    "category": "wearable",
+    "confidence": "low",
+    "match": { "kind": "ble-company", "ids": ["0D53"] },
+    "because": "Manufacturer data uses company ID 0x0D53, which ESP32 Marauder labels as Luxottica, the Ray-Ban parent. Other Luxottica products can use it.",
+    "sources": [
+      { "title": "ESP32 Marauder META_IDENTIFIERS (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.h" }
+    ]
+  },
+  {
+    "id": "meta-company",
+    "title": "Meta company ID",
+    "category": "wearable",
+    "confidence": "low",
+    "match": { "kind": "ble-company", "ids": ["01AB", "058E"] },
+    "because": "Manufacturer data uses a Meta Platforms company ID ({company}). ESP32 Marauder lists 0x01AB and 0x058E as Meta. Quest headsets and other Meta radios share them, so this is not specifically glasses.",
+    "sources": [
+      { "title": "ESP32 Marauder META_IDENTIFIERS (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.h" }
+    ]
+  },
+  {
+    "id": "findmy-offline",
+    "title": "Apple Find My",
+    "category": "tracker",
+    "confidence": "high",
+    "match": { "kind": "mfg-contains", "hex": "4C0012" },
+    "because": "Manufacturer data contains Apple company ID 0x004C followed by Find My type 0x12. ESP32 Marauder classifies that as FindMy. AirTags use it once they are participating in offline finding. Other Find My accessories use it too. Company ID 0x004C alone is not matched, because ordinary Apple radios share it.",
+    "sources": [
+      { "title": "ESP32 Marauder classifyBLEDevice (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.cpp" },
+      { "title": "Heinrich, Stute, Kornhuber, Hollick. Who Can Find My Devices? arXiv:2103.02282", "url": "https://arxiv.org/abs/2103.02282" }
+    ]
+  },
+  {
+    "id": "findmy-fmna",
+    "title": "Find My network accessory",
+    "category": "tracker",
+    "confidence": "medium",
+    "match": { "kind": "ble-service", "uuids": ["FD44"] },
+    "because": "Service UUID {service} is 0xFD44, the Find My Network Accessory service ESP32 Marauder uses when separating AirTags from other Find My radios.",
+    "sources": [
+      { "title": "ESP32 Marauder FMNA_SERVICE_UUID (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.h" }
+    ]
+  },
+  {
+    "id": "findmy-dult",
+    "title": "Unwanted-tracker service",
+    "category": "tracker",
+    "confidence": "medium",
+    "match": { "kind": "ble-service", "uuids": ["15190001-12f4-c226-88ed-2ac5579f2a85"] },
+    "because": "Advertisement includes the Detecting Unwanted Location Trackers service UUID that ESP32 Marauder records for Find My accessories.",
+    "sources": [
+      { "title": "ESP32 Marauder DULT_SERVICE_UUID (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.h" }
+    ]
+  },
+  {
+    "id": "tile-service",
+    "title": "Tile tracker",
+    "category": "tracker",
+    "confidence": "high",
+    "match": { "kind": "ble-service", "uuids": ["FEED", "FEEC"] },
+    "because": "Service UUID {service} is a 16-bit UUID the Bluetooth SIG assigns to Tile, Inc. (0xFEED and 0xFEEC).",
+    "sources": [
+      { "title": "Bluetooth SIG assigned numbers", "url": "https://www.bluetooth.com/specifications/assigned-numbers/" }
+    ]
+  },
+  {
+    "id": "smarttag-service",
+    "title": "Samsung SmartTag",
+    "category": "tracker",
+    "confidence": "high",
+    "match": { "kind": "ble-service", "uuids": ["FD5A"] },
+    "because": "Service UUID {service} is 0xFD5A. The Bluetooth SIG assigns that 16-bit UUID to Samsung, and the SmartTag discovery protocol uses it. ESP32 Marauder lists 0xFD5A as a Samsung identifier and does not treat it as Meta.",
+    "sources": [
+      { "title": "Bluetooth SIG assigned numbers", "url": "https://www.bluetooth.com/specifications/assigned-numbers/" },
+      { "title": "arXiv:2210.14702, Samsung Find network analysis", "url": "https://arxiv.org/abs/2210.14702" },
+      { "title": "ESP32 Marauder BLOCKED_IDENTIFIERS (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/WiFiScan.h" }
+    ]
+  },
+  {
+    "id": "ibeacon-logged",
+    "title": "iBeacon",
+    "category": "beacon",
+    "confidence": "high",
+    "match": { "kind": "logged-type", "type": "ibeacon" },
+    "because": "obs.rlog type {raw} is an iBeacon. Firmware writes 'i' for a new iBeacon and 'I' for a repeat only after parseIBeacon accepts the advertisement. The 21-byte RCN1 record does not contain the UUID, major, minor, or measured power. Those stay in device RAM on v1.21.0 unless a supplement carries the manufacturer data.",
+    "sources": [
+      { "title": "ESP32 Marauder Recon wiki", "url": "https://github.com/justcallmekoko/ESP32Marauder/wiki/Recon" },
+      { "title": "ESP32 Marauder IBeacon.h (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/IBeacon.h" }
+    ]
+  },
+  {
+    "id": "ibeacon-payload",
+    "title": "iBeacon payload",
+    "category": "beacon",
+    "confidence": "high",
+    "match": { "kind": "ibeacon-payload" },
+    "because": "Bytes match Apple's iBeacon header 4C 00 02 15. UUID {uuid}, major {major}, minor {minor}, measured power {tx} dBm.",
+    "sources": [
+      { "title": "ESP32 Marauder parseIBeacon (v1.21.0)", "url": "https://github.com/justcallmekoko/ESP32Marauder/blob/v1.21.0/esp32_marauder/IBeacon.h" }
+    ]
+  },
+  {
+    "id": "random-mac",
+    "title": "Locally administered MAC",
+    "category": "privacy",
+    "confidence": "medium",
+    "match": { "kind": "random-mac" },
+    "because": "The U/L bit (bit 1 of the first octet) is set, so this is a locally administered address as defined by IEEE 802. Phones use that bit for MAC randomization. Spoofed interfaces, virtual machines, and some Hak5 radios use it too. There is no universal OUI to look up.",
+    "sources": [
+      { "title": "IEEE registration authority, OUI and MAC address structure", "url": "https://standards.ieee.org/products-programs/regauth/oui/" }
+    ]
+  }
+]
